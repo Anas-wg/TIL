@@ -3,6 +3,9 @@
 ### 시작 날짜 2023.03.16
 
 - 기록될 것 들
+  - HTML/CSS
+    - Starbucks main page clone coding
+    - Apple Ipad10.2 Main page clone coding
   - JavaSrcipt (I am Here!)
   - TypeScript
   - React
