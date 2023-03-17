@@ -2,7 +2,7 @@
 
 ## Webpage
 [DEMO](https://anas-wg.github.io/Starbucks-mainpage-vanilla/)  
-![PAGE Image](Starbucks_main.jpg)
+![PAGE Image](./image/Starbucks_main.jpg)
 
 ---
 ## Github Repo
