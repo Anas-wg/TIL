@@ -6,8 +6,8 @@
   - <img src="https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=html5&logoColor=white"/>
     <img src="https://img.shields.io/badge/CSS-1572B6?style=flat-square&logo=CSS3&logoColor=white"/>
 
-    - Starbucks main page clone coding
-    - Apple Ipad10.2 Main page clone coding
+    - <a href="https://github.com/Anas-wg/Starbucks-mainpage-vanilla">Starbucks main page clone coding</a>
+    - <a href="https://github.com/Anas-wg/apple-ipad-10.2-mainpage">Apple Ipad10.2 Main page clone coding</a>
   - <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=white"/> 
     (🏃‍♂️ I am Here)
   - <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white"/>
