@@ -197,7 +197,7 @@ const {a, b, x = 4} = obj
 console.log(a, b, x) //1, 2, 4
 ```
 
-- 구조분해할당시 유의점
+- 구조분해할당시 유의점  
 나머지 요소의 오른쪽 뒤 쉼표가 존재하면 SyntaxError 발생
 ```jsx
 var [a, ...b,] = [1,2,3]; // ERROR!
