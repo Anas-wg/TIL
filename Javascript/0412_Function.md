@@ -239,7 +239,7 @@ const timer = {
     console.log(this.title)
     setTimeout(function (){
       console.log(this.title) 
-      //undefined , 여기 this 는 timer 아님, 
+      //undefined , 여기 this 는 timer 객체 아님, 
       // 왜? 일반함수기에 this 는 settimeout 내부에서 정의,
       // 정의될 this 가 내부에 없기에 undefined -> 화살표 함수 사용하면 해결 가능
     }, 1000)
