@@ -140,12 +140,200 @@ parentEl.addEventListener('wheel',() => {
 ```
 
 
-## 이벤트 위임
+## 이벤트 위임(delegation)
+### 비슷한 패턴의 이벤트를 여러 요소에서 핸들링하는 경우, 단일 조상 요소에서 제어하는 이벤트 패턴
+```html
+  <div class="parent">
+    <div class="child">1</div>
+    <div class="child">2</div>
+    <div class="child">3</div>
+    <div class="child">4</div>
+  </div>
+```
+
+```jsx
+const parentEl = document.querySelector('.parent')
+const childEls = document.querySelectorAll('.child') 
+
+
+// Foreach 로 모든 대상 요소에 이벤트 등록 -> 4번 이벤트 등록
+childEls.forEach(el => {
+  el.addEventListener('click',event => {
+    console.log(event.target.textContent)
+  })
+})
+
+// 조상 요소에 이벤트 위임! -> 부모요소에 1번만 등록
+parentEl.addEventListener('click',event => {
+  const childEl = event.target.closest('.child') // 이벤트 발생한 요소에 자식요소가 있다 = 자식요소 클릭
+  if(childEl){
+    console.log(childEl.textContent)
+  }
+})
+```
 
 ## 마우스와 포인터 이벤트
+```jsx
+// 💡click : 클릭시
+childEl.addEventListener('click',() => {
+  childEl.classList.toggle('active')
+})
+
+// 💡dblclick : 더블 클릭시
+childEl.addEventListener('dblclick',() => {
+  childEl.classList.toggle('active')
+})
+
+// 💡mousedown : 버튼을 누를 때
+childEl.addEventListener('mousedown',() => {
+  childEl.classList.add('active')
+})
+// 💡mouseup : 버튼을 뗄 때
+childEl.addEventListener('mouseup',() => {
+  childEl.classList.remove('active')
+})
+
+// 💡mouseenter: 포인터가 요소 위로 들어갈때
+childEl.addEventListener('mouseenter',() => {
+  childEl.classList.add('active')
+})
+// 💡mouseleave : 포인터가 요소 밖으로 나올때
+childEl.addEventListener('mouseleave',() => {
+  childEl.classList.remove('active')
+})
+// 💡mousemove : 포인터가 움직일때
+childEl.addEventListener('mousemove',(event) => {
+  console.log(event) // 마우스 이벤트 객체 출력
+})
+
+// 💡contextmenu : 우클릭 했을 때
+childEl.addEventListener('contextmenu',(event) => {
+  event.preventDefault() // 우클릭시 메뉴는 안보이지만 콘솔엔 출력
+  console.log(event) // Pointerevent 객체 출력
+})
+
+// 💡wheel : 휠 버튼 회전시
+parentEl.addEventListener('wheel',event => {
+  console.log(event) //
+})
+```
+
 
 ## 키보드 이벤트
+```jsx
+const inputEl = document.querySelector('input')
 
-## 양식 및 포커스 이벤트
+// keydown : 키를 누를때
+inputEl.addEventListener('keydown', event => {
+  console.log(event.key) // 입력된 값 그대로 출력, enter, space, ctrl... 등등
+})
 
-## 커스텀 이벤트
+// keyup: 키를 뗄때
+inputEl.addEventListener('keyup', event => {
+  console.log(event.key) 
+})
+```
+- Case
+```jsx
+inputEl.addEventListener('keydown', event => {
+  if(event.key === 'Enter'){
+    console.log(event.target.value) // 입력후 엔터를 눌렀을때 그때 입력된 값을 출력
+    // 한글치면 2번 입력되는현상 존재,(ex.CJK문자) => 한단계 더 필요하기 때문...
+  }
+})
+```
+
+  - 해결해보자!
+    ```jsx
+    inputEl.addEventListener('keydown', event => {
+      if(event.key === 'Enter' && !event.isComposing){
+        console.log(event.isComposing)
+        console.log(event.target.value) // 입력후 엔터를 눌렀을때 그때 입력된 값을 출력
+      }
+    ```
+
+## Focus & Form 이벤트
+```html
+  <form>
+    <input type="text" placeholder="ID">
+    <input type="text" placeholder="PW">
+    <button type="submit">제출</button>
+    <button type="reset">초기화</button>
+  </form>
+```
+
+```jsx
+const formEl = document.querySelector('form')
+const inputEls = document.querySelectorAll('input')
+
+inputEls.forEach(el => {
+  //💡focus : 요소가 포커스 받았을 경우
+  el.addEventListener('focus',() => {
+    formEl.classList.add('active')
+  })
+  // 💡blur : 요소가 포커스 잃은 경우
+  el.addEventListener('blur', () => {
+    formEl.classList.remove('active')
+  })
+  // 💡input: 값이 변경될 경우
+  el.addEventListener('input', event => {
+    console.log(event.target.value)
+  })
+  // 💡change: 상태가 변경되었을때
+  el.addEventListener('change', event => {
+    console.log(event.target.value)
+  })
+})
+
+// 💡submit: 제출 버튼을 선택했을때
+formEl.addEventListener('submit',event => {
+  event.preventDefault() // submit 의 기본동작 = 페이지 새로고침, 이를 방지하여 id,pw 객체 얻기 위함
+  const data = {
+    // target[0] -> 1ST input 요소 = id
+    id: event.target[0].value,
+    pw: event.target[1].value
+  }
+  console.log('Submit!',data)
+})
+
+// 💡Reset : 초기화(reset) 
+formEl.addEventListener('reset',event => {
+  console.log('Reset!')
+})
+```
+## 커스텀 이벤트 & dispatch
+
+```jsx
+child1.addEventListener('click',()=> {
+  // 강제로 이벤트 발생 -> 1번에 클릭이벤트 전달시 2번에 이벤트를 강제로 발생
+  child2.dispatchEvent(new Event('click'))
+  child2.dispatchEvent(new Event('wheel'))
+  child2.dispatchEvent(new Event('keydown'))
+})
+
+child2.addEventListener('click',event => {
+  console.log('child2 Click!')
+})
+
+child2.addEventListener('wheel',event => {
+  console.log('child2 Wheel!')
+})
+
+child2.addEventListener('keydown',event => {
+  console.log('child2 Keydown!')
+})
+
+
+// 🚨 hello-world 커스텀이벤트 강제 실행 가능
+child1.addEventListener('hello-world',event => {
+  console.log('커스텀 이벤트!')
+  console.log(event.detail) // 123 출력
+})
+
+// 두번째 인수로 전달하고자 하는 데이터를 입력, CustomEvnet 생성자 실행시 조회 가능
+child2.addEventListener('click', () => {
+  child1.dispatchEvent(new CustomEvent('hello-world',{
+    detail: 123
+  }))
+})
+```
