@@ -1,6 +1,6 @@
 
 ## 이벤트 추가 및 제거
-- .addEventListener() : 대상에 지정한 이벤트 발생시 지정된 함수(Handler)가 호출
+- .addEventListener() : 대상에 지정한 이벤트 발생시 지정된 함수(Handler)가 호출  
 📚 이벤트 청취(Listen)를 등록
 ```jsx
 // 부모요소 클릭시 출력
@@ -14,7 +14,7 @@ childEl.addEventListener('click',() => {
 })
 ```
 
-- .removeEventListener() : 등록했던 이벤트 청취를 제거
+- .removeEventListener() : 등록했던 이벤트 청취를 제거  
 💡 메모리 관리 위해 등록한 이벤트 제거하는 과정 필요할 수 있음  
 ```jsx
 // 리무브이벤트리스너 사용위해 함수를 변수에 할당
