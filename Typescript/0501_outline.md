@@ -169,6 +169,66 @@ const obj: {x: string, y: number} = u // ERR!
 // 배열과 달리 아이템의 개수를 명시하게 됨
 const tuple: [string, number, boolean] = ['a', 1, false]
 const tuple: [string, number, boolean] = ['a', 1, false,2] // ERR!
+// 숫자, 문자, 불린 형태 - 순서와 개수 모두 맞춰주어야 함
 const users: [number, string, boolean][] 
   = [[1, 'Neo', true], [2, 'Wangi', false]]
+```
+
+- Void
+```ts
+// parmeter 의 타입은 문자, 리턴하는 값의 키워드는 void
+// return 값이 없는 경우 void, (undefined 로 타입규정시 에러발생)
+function hello (msg: string) : void {
+  console.log(`Hello ${msg}`)
+}
+const hi : void = hello('world') // Hello World
+```
+
+- Never
+```ts
+// 절대 발생하지 않을 타입 - ex. 배열데이터로 아무것도 할당할 수 없음
+// 보통 타입지정이 잘못되었을때 에러메시지로 뜨는 경우 있음
+const nev : [] = []
+new.push(0)
+```
+
+- Union
+```ts
+// 문자 또는 숫자 데이터 할당 가능
+let union : string | number
+union = 'Hello Ts'
+union = 123
+union = false // 불린은 ERR
+
+let union : string | number | boolean
+union = false // 이렇게 하면 가능
+
+// 배열데이터의 아이템의 타입을 규정 - "배열"
+let union : (string | number)[]
+union = 'Hello Ts' // ERR
+union = 123 // ERR
+union = false // ERR
+```
+
+- Intersection
+```ts
+interface User {
+  name: string,
+  age : number
+}
+
+interface Validation {
+  isVaild: boolean
+}
+
+const heropy: User & Validation = {
+  name : 'NEo',
+  age: 85,
+  isVaild: true
+}
+
+const heropy: User & Validation = {
+  name : 'NEo',
+  age: 85,
+} // ERR! -> Validation 에서 필수로 사용할 불린값이 없기 때문에 에러 발생
 ```
