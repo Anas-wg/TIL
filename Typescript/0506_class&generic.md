@@ -97,3 +97,82 @@ console.log(
 ```
 
 ### 2. Class
+```ts
+class User<P> {
+  constructor(public payload : P) {}
+  getPayload(){
+    return this.payload
+  }
+}
+
+interface UserAType {
+  name: string
+  age: number
+  isValid : boolean
+}
+
+interface UserBType {
+  name: string
+  age: number 
+  emails: string[]
+}
+
+// 인수로 객체를 전달 -> UserAType 지정
+// 
+const heropy = new User<UserAType> ({
+  name : 'Heropy',
+  age: 85,
+  isValid: true,
+  // emails: [] // UserAType 과 일치하지 않기에 ERR!
+})
+
+const neo = new User<UserBType>({
+  name: 'Neo',
+  age: 23,
+  emails: ['neo@gmail.com']
+})
+```
+➡ 타입을 제네릭 문법을 활용하여 유연하게 사용이 가능
+
+### 3. 인터페이스 & 제약조건
+- 인터페이스 사용 예시
+```ts
+interface MyData<T> {
+  name: string
+  value : T
+}
+
+const dataA : MyData<string> = {
+  name: 'Data A',
+  value: 'Hello word'
+}
+
+const dataB: MyData<number> = {
+  name: 'Data B',
+  value: 1234
+}
+
+const datatC: MyData<boolean> = {
+  name: 'Data C',
+  value: true
+}
+
+// 숫자 아이템 베열
+const dataD : MyData<number[]> = {
+  name : 'Data D',
+  // 타입에 맞는 아이템
+  value: [1, 2, 3, 4]
+}
+```
+
+- 제약조건
+```ts
+// T의 타입을 특정 타입으로 제한하고 싶을때 -> 제약 조건
+// 문자, 숫자 타입만 허용
+interface MyData<T extends string | number > {
+  name: string
+  value : T
+}
+
+// 불린인 dataC, 배열인 dataD 는 ERR!
+```
