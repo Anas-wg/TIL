@@ -1,14 +1,14 @@
 ## Stack, Queue, Dequeue
 
 ### Stack
-- Last In first Out(박스쌓기)
+- Last In first Out(like 박스쌓기)
 - 입력이 1,2,3 이라면 출력은 3,2,1
 - 연산
   - push(삽입)
   - pop(삭제)
 
 ### Queue
-- First In First Out(줄서기)
+- First In First Out(like 줄서기)
 - 한쪽에선 입력만(rear), 한쪽에선 출력만(Front) 진행
 - 연산
   - Enqueue : 삽입
@@ -27,3 +27,8 @@
 - 스택과 큐의 연산을 모두 지원
   - scroll : 입력은 한쪽서만, 출력은 양쪽에서 진행
   - sherif : 출력은 한쪽서만, 입력은 양쪽에서 진행
+
+
+출처: https://yjg-lab.tistory.com/115
+
+
